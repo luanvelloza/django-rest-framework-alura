@@ -1,10 +1,13 @@
 from school.models import Student, Course, Enrollment
 from school.serializers import StudentSerializer, CourseSerializer, EnrollmentSerializer, ListEnrollmentByStudentSerializer, ListEnrollmentByCourseSerializer
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    filter_backends =[filters.OrderingFilter]
+    ordering_fields = ['name', 'cpf']
 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
