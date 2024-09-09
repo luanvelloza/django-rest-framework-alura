@@ -43,3 +43,17 @@ class ListEnrollmentByCourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Enrollment
         fields = ['student_name']
+
+#Version 2
+
+class StudentSerializerV2(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ['id', 'name', 'email', 'phone_number']
+
+    def validate(self, data):
+        if is_name_valid(data['name']):
+            raise serializers.ValidationError({'nome': 'Insira um nome sem caracteres especiais'})
+        if is_phone_number_valid(data['phone_number']):
+            raise serializers.ValidationError({'Numero de celular':'Insira um numero de telefone com o seguinte modelo: "99 99999-9999" '})
+        return data
