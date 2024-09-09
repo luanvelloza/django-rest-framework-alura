@@ -5,7 +5,7 @@ class Student(models.Model):
     name = models.CharField(max_length=100)
     email = models.CharField(max_length=50, blank=False)
     cpf = models.CharField(max_length=11, unique=True)
-    birthday_date = models.DateField()
+    birthday_date = models.DateField(null=True)
     phone_number = models.CharField(max_length=14)
 
     def __str__(self):
