@@ -2,6 +2,8 @@ from school.models import Student, Course, Enrollment
 from school.serializers import StudentSerializer, CourseSerializer, EnrollmentSerializer, ListEnrollmentByStudentSerializer, ListEnrollmentByCourseSerializer, StudentSerializerV2
 from rest_framework import viewsets, generics, filters
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.throttling import UserRateThrottle
+from school.throttles import EnrollmentAnonRateThrottle
 
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all().order_by('id')
@@ -20,6 +22,7 @@ class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
 
 class EnrollmentViewSet(viewsets.ModelViewSet):
+    throttle_classes = [UserRateThrottle, EnrollmentAnonRateThrottle]
     queryset = Enrollment.objects.all().order_by('id')
     serializer_class = EnrollmentSerializer
 
