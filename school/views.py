@@ -25,6 +25,7 @@ class EnrollmentViewSet(viewsets.ModelViewSet):
     throttle_classes = [UserRateThrottle, EnrollmentAnonRateThrottle]
     queryset = Enrollment.objects.all().order_by('id')
     serializer_class = EnrollmentSerializer
+    http_method_names = ['get','post',]
 
 class ListEnrollmentByStudent(generics.ListAPIView):
     def get_queryset(self):
